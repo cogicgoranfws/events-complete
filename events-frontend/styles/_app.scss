@@ -1,0 +1,26 @@
+* , *::after, *::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  height: 100vh;
+  width: 100%;
+  background-color: orange;
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+}
+
+.App > :first-child {
+  height: 100%;
+  width: 300px;
+}
+
+.App > :nth-child(2) {
+  height: 100%;
+  flex: 1 0 0;
+}

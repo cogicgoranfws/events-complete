@@ -1,0 +1,76 @@
+.filtered-display {
+  border-radius: 4px;
+  background-color: green;
+  overflow-y: scroll;
+}
+
+.filtered-display__card {
+  opacity: .7;
+  padding: .1em;
+  transition: opacity 200ms;
+  text-align: center;
+  border-radius: 4px;
+  margin: 4px 4px 1em 4px;
+  background-color: #559955;
+}
+
+.filtered-display__card .filtered-display__date,
+.filtered-display__card .filtered-display__authors,
+.filtered-display__card .filtered-display__tickets,
+.filtered-display__card .filtered-display__locate {
+  transition: transform 500ms, max-height 500ms, background-color 200ms;
+  transform: scaleY(0);
+  max-height: 0;
+  transform-origin: top;
+}
+
+.filtered-display__card:hover .filtered-display__date,
+.filtered-display__card:hover .filtered-display__authors,
+.filtered-display__card:hover .filtered-display__tickets,
+.filtered-display__card:hover .filtered-display__locate {
+  transform: scaleY(1);
+  max-height: 100px;
+}
+
+.filtered-display__card:hover {
+  opacity: 1;
+  background-color: lawngreen;
+}
+
+.filtered-display__title {
+}
+
+.filtered-display__img {
+  object-fit: cover;
+  width: 100%;
+  max-height: 160px;
+}
+
+.filtered-display__date {
+  display: block;
+}
+
+.filtered-display__authors {
+
+}
+
+.filtered-display__tickets {
+  display: flex;
+}
+
+.filtered-display__tickets > * {
+  flex: 1 0 0
+}
+
+.filtered-display__locate {
+  border: none;
+  background-color: #559955;
+  padding: 0.4em 1em;
+  border-radius: 1em;
+  cursor: pointer;
+  transition: background-color 500ms;
+}
+
+.filtered-display__locate:hover {
+  background-color: #55aa55;
+}

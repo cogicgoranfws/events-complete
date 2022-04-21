@@ -1,0 +1,60 @@
+.map-container {
+  border-radius: 4px;
+}
+
+.card-wrapper {
+  width: 320px;
+  max-height: 500px;
+  padding: .3em;
+  border-radius: 8px;
+  background-color: bisque;
+}
+
+.card-wrapper h2{
+  text-align: center;
+}
+
+.card-wrapper__date {
+  text-align: center;
+  display: block;
+}
+
+.card-wrapper__img {
+  display: block;
+  width: 100%;
+  max-height: 100px;
+  object-fit: cover;
+}
+
+.card-wrapper__tickets {
+  display: flex;
+  text-align: center;
+}
+
+.card-wrapper__description {
+  text-align: center;
+  margin: 1em 0;
+}
+
+.card-wrapper__tickets > * {
+  flex: 1 0 0
+}
+
+.popup {
+  animation: scaleUp 750ms;
+  transform-origin: "10% 10%";
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scaleY(0.2);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.selector {
+  padding: 1em;
+}
