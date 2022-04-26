@@ -9,14 +9,19 @@ export class EventsController {
   constructor(private readonly eventService: EventsService) {}
 
   @Get()
-  getAllEvents(): EventDataInterface[] {
-    return this.eventService.getAllEvents();
+  async getAllEvents(): Promise<EventDataInterface[]> {
+    return await this.eventService.getAllEvents();
   }
 
   @Post('filtered')
-  getFilteredEvents(@Body() body: MapBounds): EventDataInterface[] {
+  async getFilteredEvents(@Body() body: MapBounds): Promise<EventDataInterface[]> {
     const { north, east, south, west } = body;
     const coordinates = new MapBounds(north, east, south, west);
-    return this.eventService.getEventsWithinBounds(coordinates);
+    return await this.eventService.getEventsWithinBounds(coordinates);
   }
+
+  // @Post()
+  // async createEvent(@Body() eventDto: EventDataInterface): Promise<any> {
+  //   return await this.eventService.createEvent(eventDto);
+  // }
 }

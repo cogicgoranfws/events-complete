@@ -1,76 +1,137 @@
 .filtered-display {
   border-radius: 4px;
-  background-color: green;
+  padding: 4px;
+  background-color: #222;
+  color: #bbb;
   overflow-y: scroll;
 }
 
 .filtered-display__card {
   opacity: .7;
-  padding: .1em;
+  padding: .3em;
   transition: opacity 200ms;
   text-align: center;
   border-radius: 4px;
-  margin: 4px 4px 1em 4px;
-  background-color: #559955;
-}
-
-.filtered-display__card .filtered-display__date,
-.filtered-display__card .filtered-display__authors,
-.filtered-display__card .filtered-display__tickets,
-.filtered-display__card .filtered-display__locate {
-  transition: transform 500ms, max-height 500ms, background-color 200ms;
-  transform: scaleY(0);
-  max-height: 0;
-  transform-origin: top;
-}
-
-.filtered-display__card:hover .filtered-display__date,
-.filtered-display__card:hover .filtered-display__authors,
-.filtered-display__card:hover .filtered-display__tickets,
-.filtered-display__card:hover .filtered-display__locate {
-  transform: scaleY(1);
-  max-height: 100px;
-}
-
-.filtered-display__card:hover {
-  opacity: 1;
-  background-color: lawngreen;
-}
-
-.filtered-display__title {
+  margin-top: 4px;
+  background-color: #333;
 }
 
 .filtered-display__img {
   object-fit: cover;
   width: 100%;
   max-height: 160px;
+  border-radius: 4px;
 }
 
-.filtered-display__date {
-  display: block;
+.filtered-display__options {
+  padding: 8px 40px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.filtered-display__options > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 150ms;
 }
 
 .filtered-display__authors {
+  display: flex;
+  align-items: center;
+  background-color: #444;
+  border-radius: 2px;
+}
 
+.filtered-display__authors > * {
+  flex: 1 0 0;
+  overflow: hidden;
+}
+
+.filtered-display__authors > :first-child {
+  text-align: right;
+}
+
+.filtered-display__authors > :last-child {
+  text-align: left;
+}
+
+.filtered-display__authors > div {
+  display: flex;
+  font-size: 1.5em;
+  font-weight: 600;
+  flex-basis: 40%;
+  flex-direction: column;
+}
+
+.filtered-display__authors > div > span {
+  white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.filtered-display__authors > div > span:hover {
+  color: rosybrown;
+}
+
+.filtered-display__options {
+  color: black;
+  background-color: #444;
+  border-radius: 2px;
+  margin: 2px 0;
+}
+
+.filtered-display__options > div:hover {
+  background-color: red;
+}
+
+.filtered-display__card.animate-on .filtered-display__content{
+  overflow:hidden;
+  animation-name: slide-in;
+  animation-duration: 500ms;
+}
+
+.filtered-display__card.animate-off .filtered-display__content{
+  overflow:hidden;
+  animation-name: slide-out;
+  animation-duration: 500ms;
+}
+
+@keyframes slide-in {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 200px;
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    max-height: 200px;
+  }
+  100% {
+    max-height: 0;
+  }
+}
+
+.filtered-display__expand {
+  transition: transform 150ms;
+  transform: rotate(0);
+}
+
+.filtered-display__expand.filtered-display--active {
+  transform: rotate(180deg);
 }
 
 .filtered-display__tickets {
-  display: flex;
-}
-
-.filtered-display__tickets > * {
-  flex: 1 0 0
-}
-
-.filtered-display__locate {
-  border: none;
-  background-color: #559955;
-  padding: 0.4em 1em;
-  border-radius: 1em;
-  cursor: pointer;
-  transition: background-color 500ms;
-}
-
-.filtered-display__locate:hover {
-  background-color: #55aa55;
+  background-color: #444;
+  border-radius: 2px;
+  margin: 2px 0;
 }
