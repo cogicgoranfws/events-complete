@@ -14,7 +14,6 @@ const render = (status: Status) => {
 
 const App: NextPage = () => {
   const { events, map, markers, setMarkers, filteredEvents, setFilteredEvents } = useEventsContext();
-  console.log(filteredEvents);
   
   const [options, setOptions] = useState<MapOptions>({
     zoom: 3,

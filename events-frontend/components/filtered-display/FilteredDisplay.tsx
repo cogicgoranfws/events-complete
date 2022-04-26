@@ -4,7 +4,7 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EventDataInterface } from "../../data/events";
 
 interface Props {
@@ -49,46 +49,28 @@ const months = [
 ];
 
 interface ElementRef {
-  element: HTMLElement;
+  element: HTMLDivElement;
   title: string;
 }
 
 function FilteredDisplay({ events, onEventClick }: Props): JSX.Element {
-  const [change, setChange] = useState<any>(null);
-  const cardDetailsShown = useRef<ElementRef | null>(null);
+  const ref = useRef<ElementRef | null>(null);
 
-  function setDetails(event: any, title: string) {
-    if (cardDetailsShown.current) {
-      const getPrevElement = cardDetailsShown.current;
-      getPrevElement.element.classList.add("animate-off");
-      setTimeout(() => {
-        if (getPrevElement) {
-          getPrevElement.element.classList.remove("animate-off");
-        }
-      }, 500);
+  function setDetails(event: any, title: any) {
+    if (ref.current) {
+      // ref.current.element.classList.add("hidden");
+      const el = ref.current.element.querySelector(".filtered-display__content") as HTMLDivElement;
+      el.style!.height = '0';
     }
-    const newTarget = event.target.closest(".filtered-display__card");
-    if (cardDetailsShown.current?.element === newTarget) {
-      console.log("is same");
-      cardDetailsShown.current = null;
-      setTimeout(() => {
-        setChange(null);
-      }, 500);
+    if(ref.current?.element === event.target.closest(".filtered-display__card")) {
+      ref.current = null;
       return;
     }
-
-    newTarget?.classList.add("animate-on");
-    cardDetailsShown.current = { element: newTarget, title };
-
-    setTimeout(() => {
-      if (newTarget) {
-        newTarget.classList.remove("animate-on");
-      }
-    }, 500);
-    
-    setChange(cardDetailsShown.current);
+    const target = event.target.closest(".filtered-display__card");
+    ref.current = { element: target, title};
+    target.querySelector(".filtered-display__content").style.height = target.querySelector(".filtered-display__content").scrollHeight + 'px';
   }
-
+  
   return (
     <div className="filtered-display">
       {events.map(
@@ -101,11 +83,10 @@ function FilteredDisplay({ events, onEventClick }: Props): JSX.Element {
           booked,
           left,
         }: EventDataInterface) => {
-          const isActive = cardDetailsShown.current?.title === title;
-          console.log("isActive:", isActive);
-
+          const isActive =
+          ref.current?.title === title;
           return (
-            <div key={title} className="filtered-display__card">
+            <div key={title} className={isActive ? "filtered-display__card" : "filtered-display__card hidden"}>
               <h2 className="filtered-display__title">{title}</h2>
               <time className="filtered-display__date">
                 {getFormatedDateDisplay(new Date(date))}
@@ -120,11 +101,7 @@ function FilteredDisplay({ events, onEventClick }: Props): JSX.Element {
                   <FontAwesomeIcon icon={faCircleInfo} />
                 </div>
                 <div
-                  className={
-                    isActive
-                      ? "filtered-display__expand filtered-display--active"
-                      : "filtered-display__expand"
-                  }
+                  className="filtered-display__expand"
                   onClick={(event) => setDetails(event, title)}
                 >
                   <FontAwesomeIcon icon={faChevronCircleDown} />
@@ -133,7 +110,6 @@ function FilteredDisplay({ events, onEventClick }: Props): JSX.Element {
                   <FontAwesomeIcon icon={faLocationDot} />
                 </div>
               </div>
-              {isActive && (
                 <div className="filtered-display__content">
                   <div className="filtered-display__authors">
                     <span>Artists:</span>
@@ -168,7 +144,6 @@ function FilteredDisplay({ events, onEventClick }: Props): JSX.Element {
                     </p>
                   </div>
                 </div>
-              )}
             </div>
           );
         }

@@ -31,7 +31,6 @@ function Map({ className, onBoundsChanged , ...options  }: MapProps): JSX.Elemen
   function handleBoundsEvent() {
     if (boundsTimeout) clearTimeout(boundsTimeout);
     const timeout = setTimeout(() => {
-      console.log("set");
       const bounds = map!.getBounds();
 
       const northBound = bounds!.getNorthEast().lat();
